@@ -46,8 +46,21 @@ export default {
         this.$router.push({ name: 'home' })
       } catch (err) {
         //Set error message
-        this.error = err.message
+        this.setErrors(err.message)
       }
+    },
+    setErrors(msg) {
+      this.error = msg
+      setTimeout(() => {
+        this.error = ''
+      }, 5000)
+    }
+  },
+  mounted() {
+    // Auto set login email if query exists
+    // This will be triggered from signing up
+    if (this.$route.query.email) {
+      this.user.email = this.$route.query.email
     }
   }
 }
