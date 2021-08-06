@@ -28,4 +28,21 @@ a {
   color: #333;
   text-decoration: none;
 }
+section {
+  padding: 2rem;
+}
+
+button {
+  border-radius: 0;
+  padding: 5px 10px;
+  margin: 5px 0;
+  background-color: black;
+  color: white;
+  border: 1px black solid;
+}
+
+label {
+  display: block;
+  text-transform: capitalize;
+}
 </style>
