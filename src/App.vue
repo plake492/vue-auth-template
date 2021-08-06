@@ -27,7 +27,9 @@ body {
 a {
   color: #333;
   text-decoration: none;
+  cursor: pointer;
 }
+
 section {
   padding: 2rem;
 }
@@ -39,6 +41,7 @@ button {
   background-color: black;
   color: white;
   border: 1px black solid;
+  cursor: pointer;
 }
 
 label {
