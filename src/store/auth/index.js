@@ -1,3 +1,5 @@
+import * as AUTH from '../../utils/auth'
+
 export const auth = {
   namespaced: true,
   state: () => ({
@@ -28,15 +30,16 @@ export const auth = {
     setLoading ({ commit }, { loading }) {
       commit('SET_LOADING', loading)
     },
-    login ({ commit }, { user, authenticated }) {
-      commit('SET_AUTHENTICATED', authenticated)
+    async login ({ commit }, { user }) {
+      commit('SET_AUTHENTICATED', true)
       commit('SET_USER', user)
       console.log('user==>>', user)
     },
-    signup (_, { user }) {
-      console.log('user==>>', user)
+    async signup (_, { user }) {
+      // sigupNewUser is a method established in '../../utils/auth
+      await AUTH.sigupNewUser({ user })
     },
-    logut ({ commit }) {
+    async logut ({ commit }) {
       commit('SET_USER', null)
       commit('SET_AUTHENTICATED', false)
     }
