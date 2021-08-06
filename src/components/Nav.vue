@@ -2,7 +2,10 @@
   <nav>
     <h1>TITLE</h1>
     <div>
-      <ul>
+      <ul v-if="authenticated">
+        <a @click="logout">Logout</a>
+      </ul>
+      <ul v-else>
         <router-link :to="{ name: 'login' }">Login</router-link>
       </ul>
     </div>
@@ -11,7 +14,18 @@
 
 <script>
 export default {
-  name: 'Nav'
+  name: 'Nav',
+  computed: {
+    authenticated() {
+      return this.$store.state.auth.authenticated
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch('auth/logout')
+      this.$router.push({ name: 'login' })
+    }
+  }
 }
 </script>
 

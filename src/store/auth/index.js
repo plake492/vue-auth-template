@@ -31,9 +31,14 @@ export const auth = {
     login ({ commit }, { user, authenticated }) {
       commit('SET_AUTHENTICATED', authenticated)
       commit('SET_USER', user)
+      console.log('user==>>', user)
     },
     signup (_, { user }) {
-
+      console.log('user==>>', user)
+    },
+    logut ({ commit }) {
+      commit('SET_USER', null)
+      commit('SET_AUTHENTICATED', false)
     }
   },
   getters: {}
