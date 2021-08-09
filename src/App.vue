@@ -10,7 +10,9 @@ import Nav from './components/Nav'
 
 export default {
   components: { Nav },
-  mounted() {}
+  mounted() {
+    console.log('this.$keycloak==>>', this.$keycloak)
+  }
 }
 </script>
 
@@ -47,5 +49,10 @@ button {
 label {
   display: block;
   text-transform: capitalize;
+}
+
+ul,
+li {
+  list-style-type: none;
 }
 </style>

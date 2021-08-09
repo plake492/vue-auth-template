@@ -1,7 +1,10 @@
 <template>
   <section>
+    <aside>
+      <router-link :to="{ name: 'auth-page' }">Other Auth Page</router-link>
+    </aside>
     <h1>Home Page</h1>
-    <p>Email: {{ user }}</p>
+    <p>token: {{ token }}</p>
     <p>Is Authenticated: {{ authenticated }}</p>
   </section>
 </template>
@@ -10,13 +13,13 @@
 export default {
   name: 'Home',
   computed: {
-    user() {
+    token() {
       //Get reactive User Object
-      return this.$store.state.auth.user.email
+      return this.$keycloak.token
     },
     authenticated() {
       //Get Auth status for route guard
-      return this.$store.state.auth.authenticated
+      return this.$keycloak.authenticated
     }
   },
   mounted() {
@@ -27,3 +30,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+aside {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+a {
+  color: black !important;
+}
+</style>

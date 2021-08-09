@@ -1,14 +1,20 @@
 <template>
   <nav>
-    <h1>TITLE</h1>
-    <div>
+    <router-link :to="{ name: 'home' }">
+      <h1>TITLE</h1>
+    </router-link>
+    <div v-if="userName" style="text-align: center">
+      <h4>loggin in as: {{ userName }}</h4>
+      <h5>{{ fullName }}</h5>
+    </div>
+    <li>
       <ul v-if="authenticated">
         <a @click="logout">Logout</a>
       </ul>
       <ul v-else>
-        <router-link :to="{ name: 'login' }">Login</router-link>
+        <a @click="login">Login</a>
       </ul>
-    </div>
+    </li>
   </nav>
 </template>
 
@@ -17,13 +23,21 @@ export default {
   name: 'Nav',
   computed: {
     authenticated() {
-      return this.$store.state.auth.authenticated
+      return this.$keycloak.authenticated
+    },
+    userName() {
+      return this.$keycloak.userName || null
+    },
+    fullName() {
+      return this.$keycloak.fullName || null
     }
   },
   methods: {
     async logout() {
-      await this.$store.dispatch('auth/logout')
-      this.$router.push({ name: 'login' })
+      await this.$keycloak.logoutFn()
+    },
+    async login() {
+      await this.$keycloak.loginFn({ redirectUri: window.origin + '/home' })
     }
   }
 }
@@ -40,5 +54,10 @@ nav {
   padding: 0 2rem;
   margin-bottom: 2rem;
   min-height: 150px;
+}
+
+li,
+a {
+  color: white !important;
 }
 </style>

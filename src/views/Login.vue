@@ -1,17 +1,7 @@
 <template>
   <section>
     <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div>
-        <label>email</label>
-        <input type="email" v-model="user.email" />
-      </div>
-      <div>
-        <label>password</label>
-        <input type="password" v-model="user.password" />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <button @click="login" type="button">Login</button>
     <div>
       <small>
         Don't have an account?
@@ -31,23 +21,13 @@ export default {
   name: 'Login',
   data() {
     return {
-      user: {
-        email: '',
-        password: ''
-      },
       error: ''
     }
   },
   methods: {
     // Expect login to be asynchronous
     async login() {
-      try {
-        await this.$store.dispatch('auth/login', { user: this.user })
-        this.$router.push({ name: 'home' })
-      } catch (err) {
-        //Set error message
-        this.setErrors(err.message)
-      }
+      this.$keycloak.loginFn({ redirectUri: window.origin + '/home' })
     },
     setErrors(msg) {
       this.error = msg
@@ -56,12 +36,6 @@ export default {
       }, 5000)
     }
   },
-  mounted() {
-    // Auto set login email if query exists
-    // This will be triggered from signing up
-    if (this.$route.query.email) {
-      this.user.email = this.$route.query.email
-    }
-  }
+  mounted() {}
 }
 </script>
